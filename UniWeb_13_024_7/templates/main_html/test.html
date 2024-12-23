@@ -1,0 +1,33 @@
+<!-- {% load static %} -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {%  if new_elements %}
+
+        {% for element in new_elements %}
+                        
+        {% if element.publier and element.exercice_of and element.type %}
+                <div class="exo-container">
+                    <img src="{% static 'assets/icone/pdf_logo.png' %}" alt="">
+                    <div id="add-content">
+                        <a href="{% url 'main:pdf' element.name %}">{{ element.name|truncatechars:15 }}</a>
+                        <a href="{% url 'main:download' 'Document' element %}">Télecharger</a>
+                        <h4>{{ element.type }} de:</h4>
+                        <span>{{ element.exercice_of.name }}</span>
+                    </div>
+                </div>
+        {% endif %}
+        {% endfor %}    
+
+    {% else %}
+        <h1>Aucun pdf trouvé</h1>
+    {% endif %}
+
+</body>
+</html>

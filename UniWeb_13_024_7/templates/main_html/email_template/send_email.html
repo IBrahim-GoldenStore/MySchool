@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="font-family: Arial, Helvetica, sans-serif;">
+    <h1 style="margin: 0;padding: 5px;height: fit-content;color: #fff;background-color: #2f5d63 ;text-align: center;">Schools+</h1>
+          <div style="height: fit-content;color: black;padding: 25px;background-color: #f1f4f5;">
+                        
+                <h3 style="margin: 0;">Bonjour chers Adimistrateurs;</h3><br><br>
+
+                {% if username %}
+                    <p> <strong>{{ username }}</strong> vient de partager un fichier.</p><br>
+                {% else %}
+                    <p>Un utilisateur vient de partager un fichier.</p><br>
+                {% endif %}
+                <p><strong>Nom du fichier: </strong><br>{{ filename }}</p><br>
+
+                <p>Veuillez effectuer les verifications néccessaires à savoir :</p><br>
+
+                <strong>Réquis:</strong>
+
+                <ul>
+                    <li>Vous êtes tenue de vérifier le contenue de chaque fichier(cours/exercices et leurs corrections) <br> et vous assurez que c'est un cours ou exercice valide.</li><br><br>
+
+                    <li>Attribuer le type(exercices/sujets/TD) adéquat pour le fichier.</li><br><br>
+
+                    <li>Lui attribuer une Filière.</li><br><br>
+
+                    <li>Lui attribuer un niveau.</li><br><br>
+
+                    <li>Et cochez le champs "publier le fichier" pour le publier</li>
+                </ul><br><br>
+
+                <strong>Facultatif:</strong>
+
+                <ul>
+                    <li>Pour les cours vous pouvez attribuer le nom d'une université</li><br>
+                    <li>Vous pouvez également définir une correction au exercice si vous la possedez</li>    
+                </ul><br>
+                
+                <strong style="display: block;text-align: center;padding: 2px;">
+                    Schools+ Team®
+                </strong>
+            
+          </div>
+</body>
+</html>

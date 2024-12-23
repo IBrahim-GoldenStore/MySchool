@@ -1,0 +1,193 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'main_style/main.css' %}">
+    <link rel="stylesheet" href="{% static 'main_style/mediaquery.css' %}">
+    <title>Cours</title>
+</head>
+<body>
+<!-- header  -->
+    <section class="banner cours">
+
+        <header>
+
+            <div class="logo">
+                <img src="{% static 'assets/icone/logo.png' %}" alt="">
+                <a href="{% url 'main:index' %}"><h1>Schools+</h1></a>
+            </div>
+
+            <nav class="nav-links">
+
+                <!-- display none par defaut visible en media query  -->
+                <span id="menu-close"></span>
+
+                <div class="logo-in-nav-bar">
+                    <a href="#"><h1>Schools+</h1></a>
+                </div>
+                <!-- display none par defaut visible en media query  -->
+
+                <a href="{% url 'main:index' %}">
+                    <div>
+                        <h3>Acceuil</h3>
+                        <img src="{% static 'assets/icone/logo.png' %}" alt="">
+                    </div>    
+                </a>
+
+                <a href="{% url 'main:exo' %}">
+                    <div>
+                        <h3>Exercices</h3>
+                        <img src="{% static 'assets/icone/icone_exo3.png' %}" alt="">
+                    </div>    
+                </a>
+
+                <a href="{% url 'main:compte' %}">
+                    <div>
+                        <h3>Compte</h3>
+                        <img src="{% static 'assets/icone/icone_compte.png' %}" alt="">
+                    </div>    
+                </a>
+                
+                <a href="{% url 'main:events' %}">
+                    <div>
+                        <h3>Actus</h3>
+                        <!-- <img src="{% static 'assets/icone_compte.png' %}" alt=""> -->
+                    </div>    
+                </a>
+
+                <div class="footer-nav-bar">
+                    <p>© 2024</p>
+                </div>
+            </nav>
+
+            <div class="media-query-menu" id="menu-button"></div>
+        </header>
+
+        <div class="search-section">
+                <form action="{% url 'main:cours' %}#start" method="get">
+                    <div>
+                        <input type="search" name="search" placeholder="Recherchez un cours ou un exercice">
+                        <button type="submit"><img src="{% static 'assets/icone/icone_search.png' %}" alt=""></button>  
+                    </div>
+                    <label for="selection">Options :</label>
+                    <select name="options" id="selection">
+                        <option value="name">Nom</option>
+                        <option value="university">Université</option>
+                    </select>
+                </form>            
+        </div>
+
+        <div class="banner-logo">
+            <img src="{% static 'assets/icone/icone_cours.png' %}" alt="">
+            <span>Nos Cours</span>
+            <div class="banner-description">
+                <p>Telecharger vos cours dans notre catalogue</p>
+                <p>+50 cours disponible pour toutes les niveaux.</p>
+            </div>
+            <div class="fast-option">
+                <a href="#form">
+                    <p>Ajouter un cours</p>
+                    <img src="{% static 'assets/icone/icone_plus.png' %}" alt="">
+                </a>
+            </div> 
+        </div>
+
+    </section>
+
+    <section class="main-container cours" id="start">
+
+        <section class="category-box">
+            <h1>Filtrer par:</h1>
+            <h3>Filière</h3>
+            <div class="links">
+                {% for i in filiere %}
+                    <a href="{% url 'main:filtre_cours' i.name %}">{{ i.sigle|truncatechars:5 }}</a>
+                {% endfor %}  
+            </div>
+            <h3>Niveau</h3>
+            <div class="links2">
+                {% for i in levels %}
+                    <a href="{% url 'main:filtre_cours' i.name %}">{{ i.name|truncatechars:5 }}</a>
+                {% endfor %}  
+       
+            </div>
+        </section>
+
+        <hr>
+
+        <section class="cours-box">
+            {%  if elements %}
+                {% for element in elements %}
+            
+                    {% if element.publier and element.filiere %}
+                                
+                        <div class="exo-container">
+                            <img src="{% static 'assets/icone/pdf_logo.png' %}" alt="">
+                            <div>
+                                <a href="{% url 'main:pdf' element.name %}">{{ element.name|truncatechars:15 }}</a>
+                                <a href="{% url 'main:download' 'Cours' element.pk %}">Télecharger</a>
+                                <h4>Cours de:</h4>
+                                <span>{{ element.filiere.sigle }}</span>
+                                {% if element.publier_par %}
+                                    <div class="publi-info">
+                                        <h4>Publier par:</h4>
+                                        <span>{{ element.publier_par.username }}</span>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                    {% endif %} 
+
+                {% endfor %}
+            {% else %}
+                <div class="filter-none">
+                    <svg width="80px" height="80px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 21L3 3V6.33726C3 6.58185 3 6.70414 3.02763 6.81923C3.05213 6.92127 3.09253 7.01881 3.14736 7.10828C3.2092 7.2092 3.29568 7.29568 3.46863 7.46863L9.53137 13.5314C9.70432 13.7043 9.7908 13.7908 9.85264 13.8917C9.90747 13.9812 9.94787 14.0787 9.97237 14.1808C10 14.2959 10 14.4182 10 14.6627V21L14 17V14M8.60139 3H19.4C19.9601 3 20.2401 3 20.454 3.10899C20.6422 3.20487 20.7951 3.35785 20.891 3.54601C21 3.75992 21 4.03995 21 4.6V6.33726C21 6.58185 21 6.70414 20.9724 6.81923C20.9479 6.92127 20.9075 7.01881 20.8526 7.10828C20.7908 7.2092 20.7043 7.29568 20.5314 7.46863L16.8008 11.1992" stroke="#bc6f43" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>    
+                    <h1>Aucun pdf correspondant</h1>
+                </div>
+            {% endif %}
+            
+        </section>
+
+    </section>
+
+    <div class="pagination-button">
+        {% if elements.has_previous %}
+            <a href="?page={{ elements.previous_page_number }}#start">Precedente</a>
+        {% endif %}
+        {% if elements.has_next %}
+            <a href="?page={{ elements.next_page_number }}#start">Suivante</a>
+        {% endif %} 
+     </div>
+
+
+    <div class="add-cour">
+        <img src="{% static 'assets/icone/share2.png' %}" alt="">
+        <form action="{% url 'main:cours' %}#form" id="form" method="post" enctype="multipart/form-data">
+            <h4>Publier un fichier en étant connecter <br> pour le publier sous votre nom.</h4>
+            <h1>Partager un cours</h1>
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit" id="submit-button">Envoyer</button>
+        </form>
+    </div>
+
+    <div class="show-load">
+        <div>
+            <span></span>
+            <p>Traitemants en cours...</p>
+            <p>Veuillez patientez</p>
+        </div>
+    </div>
+
+<footer>
+    <p>Schools+</p>
+    <p>2024©</p>
+</footer>    
+<script src="{% static 'main_style/main.js' %}"></script>
+</body>
+</html>

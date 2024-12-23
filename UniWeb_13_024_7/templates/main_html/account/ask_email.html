@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="{% static 'main_style/account_css.css' %}">
+    <link rel="stylesheet" href="{% static 'main_style/mediaquery.css' %}">
+</head>
+<body>
+    <section class="main-box">
+        <img src="{% static 'assets/icone/logo.png' %}" alt="logo">
+        <h1>Schools+</h1>
+        <h2 style="margin-top: 20px;">Saisissez votre email</h2>
+        <form method="post" class="update-bio">
+            {% csrf_token %}
+            {{ form }}
+            <article>
+                <button type="submit">Valider</button>
+                <a href="{% url 'main:compte' %}">Annuler</a>
+            </article>
+        </form>    
+    </section>
+
+<script src="{% static 'main_style/account.js' %}"></script>
+</body>
+</html>

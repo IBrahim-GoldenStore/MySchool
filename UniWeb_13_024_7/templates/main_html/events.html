@@ -1,0 +1,120 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Évenement</title>
+    <link rel="stylesheet" href="{% static 'main_style/main.css' %}">
+    <link rel="stylesheet" href="{% static 'main_style/mediaquery.css' %}">
+</head>
+<body>
+    <section class="banner events">
+
+        <header>
+    
+            <div class="logo">
+                <img src="{% static 'assets/icone/logo.png' %}" alt="">
+                <a href="{% url 'main:index' %}"><h1>Schools+</h1></a>
+            </div>
+    
+            <nav class="nav-links">
+
+                <!-- display none par defaut visible en media query  -->
+                <span id="menu-close"></span>
+
+                <div class="logo-in-nav-bar">
+                    <a href="{% url 'main:index' %}"><h1>Schools+</h1></a>
+                </div>
+                <!-- display none par defaut visible en media query  -->
+
+                <a href="{% url 'main:index' %}">
+                    <div>
+                        <h3>Acceuil</h3>
+                        <img src="{% static 'assets/icone/logo.png' %}" alt="">
+                    </div>    
+                </a>
+
+                <a href="{% url 'main:cours' %}">
+                    <div>
+                        <h3>Cours</h3>
+                        <img src="{% static 'assets/icone/icone_cours.png' %}" alt="">
+                    </div>    
+                </a>
+    
+                <a href="{% url 'main:exo' %}">
+                    <div>
+                        <h3>Exercices</h3>
+                        <img src="{% static 'assets/icone/icone_exo3.png' %}" alt="">
+                    </div>    
+                </a>
+    
+                <a href="{% url 'main:compte' %}">
+                    <div>
+                        <h3>Compte</h3>
+                        <img src="{% static 'assets/icone/icone_compte.png' %}" alt="">
+                    </div>    
+                </a>
+
+                <div class="footer-nav-bar">
+                    <p>© 2024</p>
+                </div>    
+            </nav>
+
+            <div class="media-query-menu" id="menu-button"></div>
+        </header>
+    
+        <div class="search-section">
+                <form action="{% url 'main:events' %}#start" method="get">
+                    <div>
+                        <input type="search" name="search" placeholder="Recherchez un évenement">
+                        <button type="submit"><img src="{% static 'assets/icone/icone_search.png' %}" alt=""></button>  
+                    </div>
+                </form>            
+        </div>
+    
+        <div class="banner-logo">
+            <img src="{% static 'assets/icone/icone_event.png' %}" alt="">
+            <span>Actualités</span>
+            <div class="banner-description">
+                <p>L'actualité scolaire et bien plus</p>
+            </div>
+        </div>
+    
+    </section>
+
+    <section class="main-container event" id="start">
+        
+        {% if events %}
+
+            {% for event in events %}
+                <div class="event-container">
+                    {% if event.image %}
+                        <img src="{{ event.image.url }}" alt="">
+                    {% endif %}
+                    <div class="event-image">
+                        <div>
+                        </div>
+                    </div>
+                    <div class="event-description">
+                        <a href="{% url 'main:event_detail' event.name %}"><h1>{{ event.name }}</h1>
+                        </a>
+                        <span>Publier le: {{ event.add_date.date }}</span>
+                        <hr>
+                        <p>{{ event.apercu_rapide|truncatechars:75 }}</p>
+                    
+                    </div>
+                </div>
+            {% endfor %}
+
+        {% endif %}
+                    
+    </section>
+<footer>
+    <p>Schools+</p>
+    <p>2024©</p>
+</footer>
+        
+<script src="{% static 'main_style/main.js' %}"></script>
+</body>
+</html>

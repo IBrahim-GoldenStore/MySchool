@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'main_style/account_css.css' %}">
+    <link rel="stylesheet" href="{% static 'main_style/mediaquery.css' %}">
+    <title>Login</title>
+</head>
+<body>
+    <section class="main">
+        <div class="main-box">
+            <img src="{% static 'assets/icone/logo.png' %}" alt="logo">
+            <h1>Schools+</h1>
+            <form method="POST">
+                {% for message in messages %}
+                    <p style="color: red;">{{ message }}</p>
+                {% endfor %}
+                {% csrf_token %}
+                {{ form }}
+                <article>
+                    <button type="submit">Se connecter</button>
+                </article>
+            </form>
+            <div class="lien">
+                <a href="{% url 'main:sigin' %}">S'inscrire</a>
+                <a href="{% url 'main:passwordEmail' %}">Mot de passe ?</a>
+                <a href="{% url 'main:index' %}">Acceuil</a>    
+            </div>
+        </div>
+        <img id="hide_login" src="{% static 'assets/icone/icone_hide.png' %}" alt="">
+    </section>
+<script src="{% static 'main_style/account.js' %}"></script>
+</body>
+</html>

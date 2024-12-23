@@ -1,0 +1,430 @@
+@font-face {
+    font-family: "montserrat";
+    src: url("../fonts/Montserrat-Regular.ttf");
+}
+@font-face {
+    font-family: "poppins";
+    src: url("../fonts/Poppins-Regular.ttf");
+}
+html{font-size: 15px;}
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: montserrat, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+body{
+    background-color:  #FDFEFE;
+    font-weight: 500;
+}
+body::-webkit-scrollbar{
+    width: 3px;
+}
+body::-webkit-scrollbar-thumb{
+    background-color: #2f2d2d;
+    border-radius: 20px;
+}
+.errorlist{
+    color: #ff0000;
+}
+.media-query-menu,.nav-links span,.logo-in-nav-bar,.footer-nav-bar{
+    display: none;
+}
+
+/* Noter que les pages comme ask_email.html et newpassword.html utilise ce css pour leur style  */
+
+/* favoris.html */
+.read-pdf{
+    width: 100%;
+    height: 95vh;
+}
+.read-pdf > a{
+    display: block;margin: 3px;border-radius: 20px;width: fit-content;color: #FFF;background-color: rgba(0, 0, 0, 0.8);font-weight: bold;padding: 5px;text-decoration: none;height: auto;
+}
+/* favoris.html */
+
+ /* compte.html */
+header{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5px 10px;
+    justify-content: space-between;
+    background-color: #f1f3f4;
+}
+header img{
+    height: 30px;
+    width: 30px;
+    object-fit: contain;
+}
+.logo{
+    display: flex;
+    font-family: 'poppins';
+    align-items: center;
+    justify-content: center;
+}
+.logo a{
+    color: #333;
+    text-decoration:none;
+    padding-left: 5px;
+}
+.logo img{
+    height: 45px;
+    width: 45px;
+}
+
+.nav-links{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.nav-links a{
+    text-decoration: none;
+    color: #333;
+}
+.nav-links a div{
+    display: flex;
+    align-items: center;
+}
+.nav-links a div h3{
+    font-size: 1.5rem;
+    padding: 3px;
+}
+.profil-box{
+    width: 100%;
+    height: fit-content;
+    padding-top: 10px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.profil-box div:last-child{
+    align-self: flex-start;
+}
+
+.link-box{
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    height: fit-content;
+    gap: 20px;
+    padding: 10px;
+}
+.link-box a{
+    text-decoration: none;
+    font-size: 1.05rem;
+    color: #3498DB;
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    gap: 2px;
+}
+.link-box a:last-child{
+    color: #7c0909;
+}
+.link-box a span{
+    font-size: 30px;
+}
+.profil-box > img{
+    margin: 20px;
+    width: 300px;
+    object-fit: contain;
+    height: 300px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.051);
+}
+.avatar{
+    width: fit-content;
+    height: fit-content;
+
+}
+.avatar div label,.update-bio div label{
+    display: none;
+}
+/* personnalisation du button */
+.avatar div input[type='file']{
+    color: transparent;
+    padding: 5px;
+    width: 160px;
+}
+.avatar div input[type='file']::file-selector-button{
+    border: none;
+    background-color: transparent;
+    color: transparent;
+    cursor: pointer;
+    height: 20px;
+}
+.avatar div input[type='file']::before{
+    content: "Changer l'avatar";
+    color: #b11414;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+.avatar button,.update-bio button{
+    border: none;
+    background-color: #7cacc4;
+    padding: 10px;
+    color: #000;
+    border-radius: 10px;
+    margin-top:10px;
+    font-size: 1.02rem;
+    cursor: pointer;
+}
+/* personnalisation du button */
+.anonyme-avatar{
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background-color: #adf0d1;
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.anonyme-avatar p{
+    font-size: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.profil-description{
+    width: 45%;
+    height: fit-content;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0px;
+    overflow: hidden;
+    /* background-color: #fff; */
+    gap: 10px;
+}
+.profil-description  h4{
+    color: #7c47c6;
+}
+.profil-description h4 span{
+    margin-left: 10px;
+    color: #b10b0b;
+}
+.profil-description h1{
+    color: #000;
+}
+.biographie{
+    height: fit-content;
+    max-height: fit-content;
+    width: 100%;
+}
+.biographie p{
+    word-wrap: break-word;
+    padding: 5px 10px;
+    margin-bottom: 5px;
+    font-size: 1.05rem;
+    min-height: 100px;
+    width: inherit;
+    color: #333;
+}
+.static-box{
+    padding: 2%;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.static-box h1{
+    align-self: center;
+}
+.like-static > h1,.download-static > h1{
+    align-self: flex-start;
+}
+.like-static,.download-static{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.like-static > p,.download-static > p{
+    padding-left: 10px;
+    font-size: 0.9rem;
+    font-weight: 400;
+    font-weight: bold;
+    color: #7c47c6;
+}
+.like-static > p span, .download-static > p span{
+    color: #000;
+}
+.read-link div{
+    width: 80%;
+    overflow-x: scroll;
+    margin-left: 15px;
+    display: flex;
+    gap: 10px;
+    white-space: nowrap;
+    align-self: center;
+}
+.read-link > h2{
+    margin-left: 5px;
+}
+.read-link div::-webkit-scrollbar{
+    height: 2px;
+}
+.read-link div::-webkit-scrollbar-thumb{
+    background-color: #7cacc4;
+}
+.read-link div a{
+    text-decoration: none;
+    font-weight: bold;
+}
+/* compte.html */
+
+/* login.html et sgin.html */
+.main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.main-box,.update-box{
+    display: flex;
+    height: 100vh;
+    align-items:center;
+    justify-content: center;
+    flex-direction: column;
+}
+.main-box h1{
+    font-size: 50px;
+}
+.main-box img{
+    width: 50px;
+    height: 50px;
+}
+.main-box form{
+    padding:  10px;
+}
+.main-box form article,.update-bio article{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+    gap: 20px;
+}
+.main-box form article button,.main-box form article a,.update-bio article a{
+    background-color: #adf0d1;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    font-family: 'montserrat';
+    color: #000;
+    text-decoration: none;
+}
+.main > img{
+    margin-top: 40px;
+    height: 30px;
+    width: 30px;
+    object-fit: cover;
+}
+.main-box form label{
+    display: none;
+}
+.main-box form input{
+    margin: 10px 0px;
+    outline: none;
+    border-radius: 10px;
+    border: 1px solid rgba(216, 15, 15, 0.595);
+    width: 100%;
+    font-size: 20px;
+    padding: 5px;
+    transition: .5s;
+}
+.main-box form input:focus{
+    transform: scale(1.05);
+    border: #7c47c6 1px solid;
+}
+.lien{
+    height: fit-content;
+    margin: 10px 0 0 0 ;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.lien a{
+    font-size: 1.1rem;
+    text-decoration: none;
+}
+.lien a:first-child{
+    background-color: #333;
+    border: none;
+    color: #fff;
+    font-size: 1.1rem;
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+#id_new_password1_helptext{
+    display: none;
+}
+#id_new_password2_helptext{
+    display: none;
+}
+/* login.html et sigin.html */
+
+/* update_bio.html */
+.update-bio button{
+    background-color: #adf0d1;
+    margin-top: 0;
+}
+.update-bio article,.update-bio{
+    margin-top: 25px;
+}
+.update-bio div textarea{
+    resize: none;
+    width: 300px;
+    height: 150px;
+    background-color: #f1f3f4;
+    outline: none;
+    border: 1px solid rgba(216, 15, 15, 0.595);
+    padding: 5px;
+    margin-top: 5px;
+    transition: .5s;
+    border-radius: 10px;
+}
+.update-bio div textarea::-webkit-scrollbar{
+    width: 2px;
+    border-radius: 20px;
+}
+.update-bio div textarea::-webkit-scrollbar-thumb{
+    background-color: #000;
+}
+.update-bio select{
+    margin-top: 5px;
+    width: 100%;
+    border:  1px solid rgba(216, 15, 15, 0.595);
+    background-color: #f1f3f4;
+    border-radius: 10px;
+    outline: none;
+    transition: .5s;
+    padding: 7px;
+}
+.update-bio div input{
+    margin: 5px 0px;
+    outline: none;
+    border-radius: 10px;
+    width: 100%;
+    font-size: 20px;
+    padding: 5px;
+    background-color: #f1f3f4;
+    border: 1px solid rgba(216, 15, 15, 0.595);
+    transition: .3s;
+}
+.update-bio div input:focus,.update-bio div textarea:focus,.update-bio select:focus{
+    border: #7c47c6 1px solid;
+    transform: scale(1.04);
+}
+.helptext{
+    margin: 3px;
+    display: block;
+    font-size: .8rem;
+    color: #7c47c6;
+}
+#id_username_helptext,#id_password1_helptext,#id_password2_helptext{
+    display: none;
+}
+/* update_bio.html */

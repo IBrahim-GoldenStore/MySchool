@@ -1,0 +1,195 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'main_style/main.css' %}">
+    <link rel="stylesheet" href="{% static 'main_style/mediaquery.css' %}">
+    <title>Schools+</title>
+</head>
+<body>
+<!-- header  -->
+<section class="banner">
+
+    <header>
+
+        <div class="logo">
+            <img src="{% static 'assets/icone/logo.png' %}" alt="">
+            <a href="{% url 'main:index' %}"><h1>Schools+</h1></a>
+        </div>
+
+        <nav class="nav-links">
+
+            <!-- display none par defaut visible en media query  -->
+            <span id="menu-close"></span>
+
+            <div class="logo-in-nav-bar">
+                <!-- <img src="{% static 'assets/logo.png' %}" alt=""> -->
+                <a href="{% url 'main:index' %}"><h1>Schools+</h1></a>
+            </div>
+            <!-- display none par defaut visible en media query  -->
+
+            <a href="{% url 'main:cours' %}">
+                <div>
+                    <h3>Cours</h3>
+                    <img src="{% static 'assets/icone/icone_cours.png' %}" alt="">
+                </div>    
+            </a>
+
+            <a href="{% url 'main:exo' %}">
+                <div>
+                    <h3>Exercices</h3>
+                    <img src="{% static 'assets/icone/icone_exo3.png' %}" alt="">
+                </div>    
+            </a>
+
+            <a href="{% url 'main:compte' %}">
+                <div>
+                    <h3>Compte</h3>
+                    <img src="{% static 'assets/icone/icone_compte.png' %}" alt="">
+                </div>    
+            </a>
+
+            <a href="{% url 'main:events' %}">
+                <div>
+                    <h3>Actus</h3>
+                    <!-- <img src="{% static 'assets/icone_compte.png' %}" alt=""> -->
+                </div>    
+            </a>
+
+            <div class="footer-nav-bar">
+                <p>© 2024</p>
+            </div>
+        </nav>
+        <!-- display none par defaut visible en media query  -->
+        <div class="media-query-menu" id="menu-button"></div>
+        <!-- display none par defaut visible en media query  -->
+
+    </header>
+
+    <!-- <div class="search-section">
+            <form method="get">
+                <div>
+                    <input type="search" name="search" placeholder="Recherchez un cours ou un exercice">
+                    <button type="submit"><img src="{% static 'assets/icone_search.png' %}" alt=""></button>  
+                </div>
+                <label for="selection">Critères</label>
+                <select name="options" id="selection">
+                    <option value="name">Nom</option>
+                    <option value="university">Université</option>
+                    <option value="filiere">Filière</option>
+                    <option value="level">Niveau</option>
+                </select>
+        </form>            
+    </div> -->
+
+    <div class="banner-logo">
+        <img src="{% static 'assets/icone/logo.png' %}" alt="">
+        <span>Schools+</span>
+        <div class="banner-description">
+            <p>Retrouver +50 cours,td et exercices sur notre plateforme.</p>
+        </div>
+        <div class="fast-option">
+            <a href="{% url 'main:cours' %}#form">
+                <p>Ajouter un cours</p>
+                <img src="{% static 'assets/icone/icone_plus.png' %}" alt="">
+            </a>
+        </div> 
+    </div>
+
+</section>
+<!-- header  -->
+ <!-- <video controls width="640" height="360">
+    <source src="{% static 'assets/video.mp4' %}" type="video/mp4">
+ </video> -->
+
+<section class="main-box">
+
+    <div class='container-box'>
+
+        <div class="container impair">
+            <div>
+                <h1>Exercices</h1>
+                <p>
+                    Améliore vos compétences grâce à notre large sélection d'exercices pour différents niveaux. Idéal pour réviser ou approfondir vos connaissances
+                </p><br>
+                <a href="{% url 'main:exo' %}">Voir les exercices</a>
+            </div>
+            <img src="{% static 'assets/icone/icone_exo.png' %}" alt="">
+        </div>
+
+    </div>
+    
+    <div class='container-box'>
+
+        <div class="container">
+            <div>
+                <h1>Cours</h1>
+                <p>
+                    Besoin de cours? <br>
+                    Decouvrez nos cours couvrans une variete de sujets adaptes aux etudiants du lycee jusqu'a l'enseignement superieur.
+                    Apprenez a votre rythme avec des ressources de qualite
+                </p><br>
+                <a href="{% url 'main:cours' %}">Jetez-y un coup d'oeil</a>
+            </div>
+            <img src="{% static 'assets/banner/banner5.jpg' %}" alt="">
+        </div>
+
+    </div>
+
+    <div class='container-box'>
+
+        <div class="container impair">
+            <div>
+                <h1>Sujets</h1>
+                <p>
+                    Accedez a une collection de sujets couvrant differents domaines et niveaux.
+                    Preparez-vous efficacement pour vos examens et vos projets scolaires
+                </p><br>
+                <a href="{% url 'main:cours' %}">Sujets</a>
+            </div>
+            <img src="{% static 'assets/banner/banner7.jpg' %}" alt="">
+        </div>
+
+    </div>
+
+    <div class='container-box'>
+
+        <div class="container">
+            <div>
+                <h1>Des Corrections</h1>
+                <p>
+                    Consultez des corrections pedagogique pour mieux comprendre vos erreurs et progresser dans vos apprentissage.
+                </p><br>
+            </div>
+            <img src="{% static 'assets/banner/banner6.jpg' %}" alt="">
+        </div>
+
+    </div>
+
+    <div class='container-box'>
+
+        <div class="container impair">
+            <div>
+                <h1>Actualités</h1>
+                <p>
+                    Informez-vous sur l'actualités scolaire du pays.
+                    Des communiques aux evenements scolaires inter-universitaire
+                </p><br>
+                <a href="{% url 'main:events' %}">Actus</a>
+            </div>
+            <img src="{% static 'assets/banner/banner8.jpg' %}" alt="">
+        </div>
+
+    </div>
+
+</section>
+<footer>
+<p>Schools+</p>
+<p>2024©</p>
+</footer>
+
+<script src="{% static 'main_style/main.js' %}"></script>
+</body>
+</html>

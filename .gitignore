@@ -1,0 +1,6 @@
+/media/
+/staticfiles/
+.env
+db.sqlite3
+locals.py
+modification_potentiel.txt

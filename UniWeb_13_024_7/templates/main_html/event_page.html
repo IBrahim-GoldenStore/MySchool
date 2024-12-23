@@ -1,0 +1,218 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ event.name }}</title>
+    <link rel="stylesheet" href="{% static 'main_style/main.css' %}">
+    <link rel="stylesheet" href="{% static 'main_style/mediaquery.css' %}">
+</head>
+<body>
+    <header>
+    
+        <div class="logo">
+            <img src="{% static 'assets/icone/logo.png' %}" alt="">
+            <a href="{% url 'main:index' %}"><h1>Schools+</h1></a>
+        </div>
+
+        <nav class="nav-links">
+
+            <!-- display none par defaut visible en media query  -->
+            <span id="menu-close"></span>
+
+            <div class="logo-in-nav-bar">
+                <a href="#"><h1>Schools+</h1></a>
+            </div>
+            <!-- display none par defaut visible en media query  -->
+
+            <a href="{% url 'main:index' %}">
+                <div>
+                    <h3>Acceuil</h3>
+                    <img src="{% static 'assets/icone/logo.png' %}" alt="">
+                </div>    
+            </a>
+
+            <a href="{% url 'main:cours' %}">
+                <div>
+                    <h3>Cours</h3>
+                    <img src="{% static 'assets/icone/icone_cours.png' %}" alt="">
+                </div>    
+            </a>
+
+            <a href="{% url 'main:exo' %}">
+                <div>
+                    <h3>Exercices</h3>
+                    <img src="{% static 'assets/icone/icone_exo3.png' %}" alt="">
+                </div>    
+            </a>
+
+            <a href="{% url 'main:compte' %}">
+                <div>
+                    <h3>Compte</h3>
+                    <img src="{% static 'assets/icone/icone_compte.png' %}" alt="">
+                </div>    
+            </a>
+
+            <div class="footer-nav-bar">
+                <p>© 2024</p>
+            </div>    
+        </nav>
+
+        <div class="media-query-menu" id="menu-button"></div>
+    </header>
+
+    <section class="main-container event-page">
+        <a href="{% url 'main:events' %}">Retour</a>
+        {% if event.image %}
+            <div class="event-image" style="background-image:linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.2)), url('{{ event.image.url }}');"></div>
+        {% endif %}
+
+        <div class="event-page-box">
+            <h1>{{ event.name }}</h1>
+            {% if event.file %}
+                <a href="{% url 'main:download' 'Events' event.pk %}">Telecharger le fichier associer</a>
+            {% endif %}
+            <p>{{ event.description }}</p>
+        </div>
+        
+        {% if user.is_authenticated %}
+            <section class="like-box">
+                <span id="compteur"></span>
+                <div>
+                    <span id="like-event">
+                        <img src="{% static 'assets/icone/like.png' %}" alt="">
+                    </span>
+                    <hr>
+                    <span id="dislike-event">
+                        <img src="{% static 'assets/icone/dislike.png' %}" alt="">
+                    </span>
+                </div>
+
+            </section>
+        {% endif %}
+            
+        <div class="pdf-box">
+            {% if event.source %}
+                <p><span>Source</span> : {{ event.source }}</p>
+            {% endif %}
+            <p><span>Date de publication</span> : le {{ event.add_date.date }}</p>
+        </div>
+
+    </section>
+    
+<script src="{% static 'main_style/main.js' %}"></script>
+{% if user.is_authenticated %}
+<script>
+    function test(){
+        if (navigator.share){
+            navigator.share({
+                title: 'Partage',
+                text: 'contenu explicatif',
+                url: 'Lurl'
+            })
+        }
+    }
+
+    const like= document.getElementById('like-event')
+    const dislike= document.getElementById('dislike-event')
+
+    const checkcolor= 'rgba(158, 44, 103, 0.648)'
+    const color= 'transparent'
+
+    const url= "{% url 'main:like_event' event.pk user.pk 'neutre' %}"
+    fetch(url,{
+        method: 'POST',
+        headers:{
+            'X-CSRFToken':getcookie(),
+        }
+    })
+
+    .then(response => response.json())
+    .then(data => {
+        const compteur= document.getElementById('compteur')
+
+        if (data.compteur > '0'){
+            compteur.innerHTML = `${data.compteur}`
+        } else {
+            compteur.innerHTML = '0'
+        }
+
+        if( data.etat == 'disliker'){
+            dislike.style.backgroundColor=checkcolor
+
+        } else if ( data.etat == 'liker'){
+            like.style.backgroundColor= checkcolor
+        }
+        console.log(data.etat)
+    })
+
+    like.onclick =function(){
+        const url= "{% url 'main:like_event' event.pk user.pk 'like' %}"
+        fetch(url,{
+            method:'POST',
+            headers:{
+                'X-CSRFToken': getcookie()
+            }
+        })
+
+        .then(response => response.json())
+        .then(data => {
+            const compteur= document.getElementById('compteur')
+
+            if (data.compteur > '0'){
+                compteur.innerHTML = `${data.compteur}`
+            } else {
+                compteur.innerHTML = '0'
+            } 
+        })
+
+        like.style.backgroundColor= checkcolor
+        dislike.style.backgroundColor= color
+    }
+    dislike.onclick =function(){
+        const url= "{% url 'main:like_event' event.pk user.pk 'dislike' %}"
+        fetch(url,{
+            method:'POST',
+            headers:{
+                'X-CSRFToken':getcookie()
+            }
+        })
+
+        .then(response => response.json())
+        .then(data => {
+            const compteur= document.getElementById('compteur')
+
+            if (data.compteur > '0'){
+                compteur.innerHTML = `${data.compteur}`
+            } else {
+                compteur.innerHTML = '0'
+            }
+            
+        })
+
+        dislike.style.backgroundColor= checkcolor
+        like.style.backgroundColor= color
+    }
+
+    // recuperation du token csrf pour utiliser la methode post dans fecth
+    function getcookie(){
+        const cookie_name= 'csrftoken'
+        let cookieValue= null
+        if (document.cookie && document.cookie !== ''){
+            const all_cookie = document.cookie.split(';') // split permet de separer des donner avec kelke chose
+            for(let i=0; i < all_cookie.length; i++){
+                const cookie =all_cookie[i].trim() // trim pour enlever les espaces au debut et la fin
+                if (cookie.substring(0,cookie_name.length + 1) == (cookie_name + '=')) {
+                    cookieValue= decodeURIComponent(cookie.substring(cookie_name.length + 1))
+                    break
+                }
+            }
+        }
+        return cookieValue
+    }
+
+</script>
+{% endif %}
+</body>
+</html>

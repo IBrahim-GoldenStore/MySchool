@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upadate Profile</title>
+    <link rel="stylesheet" href="{% static 'main_style/account_css.css' %}">
+    <link rel="stylesheet" href="{% static 'main_style/mediaquery.css' %}">
+</head>
+<body>
+    <section class="update-box">
+        <h2>Modification de votre Biographie</h2>
+        <form method="post" class="update-bio">
+            {% csrf_token %}
+            {{ bioform }}
+            <article>
+                <button type="submit" name="bioform">Sauvegarder</button>
+                <a href="{% url 'main:compte' %}">Annuler</a>
+            </article>
+        </form>    
+    </section>
+<script src="{% static 'main_style/account.js' %}"></script>
+</body>
+</html>

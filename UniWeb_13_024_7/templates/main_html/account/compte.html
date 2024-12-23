@@ -1,0 +1,138 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'main_style/account_css.css' %}">
+    <link rel="stylesheet" href="{% static 'main_style/mediaquery.css' %}">
+    <title>Compte</title>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="{% static 'assets/icone/logo.png' %}" alt="">
+            <a href="#"><h1>Schools+</h1></a>
+        </div>
+
+        <nav class="nav-links">
+
+            <!-- display none par defaut visible en media query  -->
+            <span id="menu-close"></span>
+
+            <div class="logo-in-nav-bar">
+                <a href="#"><h1>Schools+</h1></a>
+            </div>
+            <!-- display none par defaut visible en media query  -->
+
+            <a href="{% url 'main:index' %}">
+                <div>
+                    <h3>Acceuil</h3>
+                    <img src="{% static 'assets/icone/logo.png' %}" alt="">
+                </div>    
+            </a>
+
+            <a href="{% url 'main:cours' %}">
+                <div>
+                    <h3>Cours</h3>
+                    <img src="{% static 'assets/icone/icone_cours.png' %}" alt="">
+                </div>    
+            </a>
+
+            <a href="{% url 'main:exo' %}">
+                <div>
+                    <h3>Exercices</h3>
+                    <img src="{% static 'assets/icone/icone_exo3.png' %}" alt="">
+                </div>    
+            </a>
+
+            <a href="{% url 'main:events' %}">
+                <div>
+                    <h3>Actus</h3>
+                    <!-- <img src="{% static 'assets/icone_compte.png' %}" alt=""> -->
+                </div>    
+            </a>
+
+            <div class="footer-nav-bar">
+                <p>© 2024</p>
+                <p>Tout droits reserver</p>
+            </div>
+        </nav>
+        <div class="media-query-menu" id="menu-button"></div>
+    </header>
+    <section class="profil-box">
+        {% if user.profil.image %}
+            <img src="{{ user.profil.image.url }}" alt="profil">
+        {% else %}
+            <div class="anonyme-avatar">
+                <p>
+                    {{ name|upper }}
+                </p>
+            </div>
+        {% endif %}
+        <div class="profil-description">
+            {% if user.profil %}
+                <h1>{{ user.username|truncatechars:20}}</h1>
+                <h4>Établissement : {{ user.profil.university|default:"Non définie"|truncatechars:15 }} <span>Filière: {{ user.profil.filiere.sigle|truncatechars:10|default:"Non définie" }}</span></h4>
+                <h4>Niveau d'étude: {{ user.profil.level.name|default:"Non définie"|truncatechars:15 }} <span>Statut: {{ user.profil.statut|default:"Etudiant" }}</span></h4>
+                <div class="biographie">
+                    <h4>Biographie</h4>
+                    <p>{{ user.profil.bio }}</p>    
+                </div>
+            {% endif %}
+            <form method="post" class="avatar" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form }}
+                <button type="submit">Sauvegarder</button>
+            </form>
+        </div>
+        <div>
+            <h2>Paramètres</h2>
+            <div class="link-box">
+                <a href="{% url 'main:logout' %}"><span>•</span> Déconnexion</a>
+                <a href="{% url 'main:index' %}"><span>•</span> Acceuil</a>
+                <!-- <a href="{% url 'main:index' %}"><span>•</span> Changer de Statut</a> -->
+                <a href="{% url 'main:update' user.username %}"><span>•</span> Modifier le Profil</a>
+                <a href="mailto:myschoolteam.web@gmail.com?subject=Prise de Contact."><span>•</span> Nous-Contactez</a>
+                {% if user.profil.image %}
+                    <a href="{% url 'main:remove' user.username %}"><span>•</span> Supprimer l'avatar</a>
+                {% endif %}
+                <a href="{% url 'main:delete' user.username %}"><span>•</span> Supprimer le compte</a>
+            </div>    
+        </div>
+    </section>
+
+        <section class="read-link">
+            <h2>Favoris</h2>
+            <div>
+                {% for item in favoris  %}
+                    {% for element in item %}
+                    <a href="{% url 'main:read' element.pdf.name %}">{{ element.pdf.name|truncatechars:20 }}</a>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </section>
+
+    {% if user.is_superuser or user.is_staff %}
+
+        <section class="static-box">
+            <h1>Static du site</h1>
+            <div class="like-static">
+                <h1>Like</h1>
+                <p>Cours : <span>{{ cours_like }}</span></p>
+                <p>Document : <span>{{ document_like }}</span></p>
+                <p>Evenements : <span>{{ event_like }}</span></p>
+            </div>
+            <div class="download-static">
+                <h1>Télechargement</h1>
+                <p>Cours :  <span>{{ cours_download }}</span></p>
+                <p>Document :  <span>{{ document_download }}</span></p>
+                <p>Evenements :  <span>{{ event_download }}</span></p>
+            </div>
+        </section>
+    {% endif %}
+            
+        
+<script src="{% static 'main_style/account.js' %}"></script>
+</body>
+</html>

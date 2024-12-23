@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schools+</title>
+    <link rel="stylesheet" href="{% static 'main_style/main.css' %}">
+    <link rel="stylesheet" href="{% static 'main_style/mediaquery.css' %}">
+</head>
+<body>
+    <section class="main-of-state">
+        <div class="box-of-state">
+            <img src="{% static image %}" alt="">
+            <h1>{{ subject }}</h1>
+            <h3>{{ message|safe }}</h3>
+            
+            {% if lien %}
+                <a href="{% url lien %}">Retour</a>
+            {% else %}
+                <a href="{% url 'main:index' %}">Acceuil</a>
+            {% endif %}
+                
+        </div>
+    </section>
+</body>
+</html>

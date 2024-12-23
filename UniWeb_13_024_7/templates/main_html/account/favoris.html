@@ -1,0 +1,16 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'main_style/account_css.css' %}">
+    <title>Schools+</title>
+</head>
+<body>
+    <a href="{% url 'main:index' %}" style="display: block;margin: 3px;border-radius: 20px;width: fit-content;color: #FFF;background-color: rgba(0, 0, 0, 0.8);font-weight: bold;padding: 5px;text-decoration: none;height: auto;">
+        Acceuil
+    </a>
+    <iframe class="read-pdf" src="{{ pdf.file.url }}" frameborder="0"></iframe>
+</body>
+</html>
