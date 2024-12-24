@@ -15,6 +15,9 @@ X_FRAME_OPTIONS='SAMEORIGIN'
 X_CONTENT_TYPE_OPTIONS='nosniff'
 SECURE_BROWSER_XSS_FILTER= True
 
+CSRF_TRUSTED_ORIGINS=[
+    'Schoolsplus.pythonanywhere.com',
+]
 CSRF_COOKIE_HTTPONLY = True
 CSRF_COOKIE_SECURE = True  # Assure que le cookie CSRF est uniquement envoyé via HTTPS
 SESSION_COOKIE_SECURE = True  # Assure que le cookie de session est uniquement envoyé via HTTPS

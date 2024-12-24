@@ -102,6 +102,7 @@
     })
     //  Recupere la premiere page comme image
 
+    const csrfToken= getcookie()
     // like
     const like= document.getElementById('like')
     const dislike= document.getElementById('dislike')
@@ -113,7 +114,7 @@
     fetch(url,{
         method:"POST",
         headers:{
-            'X-CSRFToken':getcookie()
+            'X-CSRFToken': csrfToken
         }
     })
     .then(response => response.json())
@@ -163,7 +164,7 @@
         fetch(url,{
             method:"POST",
             headers:{
-                'X-CSRFToken':getcookie()
+                'X-CSRFToken':csrfToken
             }
         })
 
@@ -195,7 +196,7 @@
     fetch(favoris_url_test,{
         method:"POST",
         headers:{
-            'X-CSRFToken':getcookie()
+            'X-CSRFToken':csrfToken
         }
     })
     .then(response=> response.json())
@@ -215,7 +216,7 @@
         fetch(favoris_url_change,{
             method:'POST',
             headers:{
-                'X-CSRFToken':getcookie()
+                'X-CSRFToken':csrfToken
             }
         })
         .then(response => response.json())
