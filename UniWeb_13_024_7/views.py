@@ -16,108 +16,105 @@ import os
 
 @login_required
 def like_document(request,pdf_name,user_id,etat):
-    if request.method == 'POST':
-        user=get_object_or_404(User,pk=user_id)
+    user=get_object_or_404(User,pk=user_id)
 
-        if Document.objects.filter(name=pdf_name).exists():
-            pdf= Document.objects.get(name=pdf_name)
-            pdf_like =DocumentLike.objects.get(user=user,document=pdf)
-            type= 'document'
+    if Document.objects.filter(name=pdf_name).exists():
+        pdf= Document.objects.get(name=pdf_name)
+        pdf_like =DocumentLike.objects.get(user=user,document=pdf)
+        type= 'document'
+    else:
+        pdf= Cours.objects.get(name=pdf_name)
+        pdf_like =CoursLike.objects.get(user=user,cours=pdf)
+        type= 'cours'
+
+    if etat == 'like':
+        pdf_like.like=True
+        pdf_like.save()
+
+        if type == 'document':
+            compteur= DocumentLike.objects.filter(document=pdf,like=True).count()
+        elif type == 'cours':
+            compteur= CoursLike.objects.filter(cours=pdf,like=True).count()
+
+        return JsonResponse({'compteur':str(compteur)})
+    elif etat == 'dislike':
+        pdf_like.like=False
+        pdf_like.save()
+
+        if type == 'document':
+            compteur= DocumentLike.objects.filter(document=pdf,like=True).count()
+        elif type == 'cours':
+            compteur= CoursLike.objects.filter(cours=pdf,like=True).count()
+
+        return JsonResponse({'compteur':str(compteur)})
+    elif etat == 'neutre':
+
+        if type == 'document':
+            compteur= DocumentLike.objects.filter(document=pdf,like=True).count()
+        elif type == 'cours':
+            compteur= CoursLike.objects.filter(cours=pdf,like=True).count()
+
+        if pdf_like.like == True:
+            return JsonResponse({'etat': 'liker','compteur':str(compteur)})
         else:
-            pdf= Cours.objects.get(name=pdf_name)
-            pdf_like =CoursLike.objects.get(user=user,cours=pdf)
-            type= 'cours'
-
-        if etat == 'like':
-            pdf_like.like=True
-            pdf_like.save()
-
-            if type == 'document':
-                compteur= DocumentLike.objects.filter(document=pdf,like=True).count()
-            elif type == 'cours':
-                compteur= CoursLike.objects.filter(cours=pdf,like=True).count()
-
-            return JsonResponse({'compteur':str(compteur)})
-        elif etat == 'dislike':
-            pdf_like.like=False
-            pdf_like.save()
-
-            if type == 'document':
-                compteur= DocumentLike.objects.filter(document=pdf,like=True).count()
-            elif type == 'cours':
-                compteur= CoursLike.objects.filter(cours=pdf,like=True).count()
-
-            return JsonResponse({'compteur':str(compteur)})
-        elif etat == 'neutre':
-
-            if type == 'document':
-                compteur= DocumentLike.objects.filter(document=pdf,like=True).count()
-            elif type == 'cours':
-                compteur= CoursLike.objects.filter(cours=pdf,like=True).count()
-
-            if pdf_like.like == True:
-                return JsonResponse({'etat': 'liker','compteur':str(compteur)})
-            else:
-                return JsonResponse({'etat': 'disliker','compteur':str(compteur)})
+            return JsonResponse({'etat': 'disliker','compteur':str(compteur)})
         
 
 
 @login_required
 def like_event(request,event_id,user_id,etat):
-    if request.method=='POST':
-        try:
-            user= get_object_or_404(User,pk=user_id)
-            event= Events.objects.get(pk=event_id)
-            event_like= EventLike.objects.get(user=user,event=event)
+    try:
+        user= get_object_or_404(User,pk=user_id)
+        event= Events.objects.get(pk=event_id)
+        event_like= EventLike.objects.get(user=user,event=event)
 
 
-            if etat == 'like':
-                event_like.like=True
-                event_like.save()
+        if etat == 'like':
+            event_like.like=True
+            event_like.save()
 
-                compteur= EventLike.objects.filter(user=user,event=event,like=True).count()
-                return JsonResponse({'compteur':str(compteur)})
-            elif etat == 'dislike':
-                event_like.like=False
-                event_like.save()
+            compteur= EventLike.objects.filter(user=user,event=event,like=True).count()
+            return JsonResponse({'compteur':str(compteur)})
+        elif etat == 'dislike':
+            event_like.like=False
+            event_like.save()
 
-                compteur= EventLike.objects.filter(user=user,event=event,like=True).count()
-                return JsonResponse({'compteur':str(compteur)})
-            elif etat == 'neutre':
-                compteur= EventLike.objects.filter(user=user,event=event,like=True).count()
-                if event_like.like == True:
-                    return JsonResponse({'etat': 'liker','compteur':str(compteur)})
-                else:
-                    return JsonResponse({'etat': 'disliker','compteur':str(compteur)})
-        except:
-            return JsonResponse({})
+            compteur= EventLike.objects.filter(user=user,event=event,like=True).count()
+            return JsonResponse({'compteur':str(compteur)})
+        elif etat == 'neutre':
+            compteur= EventLike.objects.filter(user=user,event=event,like=True).count()
+            if event_like.like == True:
+                return JsonResponse({'etat': 'liker','compteur':str(compteur)})
+            else:
+                return JsonResponse({'etat': 'disliker','compteur':str(compteur)})
+    except:
+        return JsonResponse({})
 
 @login_required
 def FavorisGestion(request,pdf_name,user_id,etat):
-    if request.method == 'POST':
-        user= get_object_or_404(User,pk=user_id)
+    user= get_object_or_404(User,pk=user_id)
 
-        if Document.objects.filter(name=pdf_name).exists():
-            pdf= Document.objects.get(name=pdf_name)
-            favoris= FavorisDocument.objects.get(user=user,pdf=pdf)
+    if Document.objects.filter(name=pdf_name).exists():
+        pdf= Document.objects.get(name=pdf_name)
+        favoris= FavorisDocument.objects.get(user=user,pdf=pdf)
+    else:
+        pdf= Cours.objects.get(name=pdf_name)
+        favoris= FavorisCours.objects.get(user=user,pdf=pdf)
+
+    if etat == 'neutre':
+        if favoris.favoris == True:
+            return JsonResponse({'favoris': '1'})
         else:
-            pdf= Cours.objects.get(name=pdf_name)
-            favoris= FavorisCours.objects.get(user=user,pdf=pdf)
-    
-        if etat == 'neutre':
-            if favoris.favoris == True:
-                return JsonResponse({'favoris': '1'})
-            else:
-                return JsonResponse({'favoris':'0'})
-        else:
-            if favoris.favoris == True:
-                favoris.favoris=False
-                favoris.save()
-                return JsonResponse({'favoris':'0'})
-            elif favoris.favoris == False:
-                favoris.favoris= True
-                favoris.save()
-                return JsonResponse({'favoris':'1'})
+            return JsonResponse({'favoris':'0'})
+    else:
+        if favoris.favoris == True:
+            favoris.favoris=False
+            favoris.save()
+            return JsonResponse({'favoris':'0'})
+        elif favoris.favoris == False:
+            favoris.favoris= True
+            favoris.save()
+            return JsonResponse({'favoris':'1'})
 
 @login_required
 def read_view(request,pdf_name):
