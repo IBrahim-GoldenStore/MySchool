@@ -1,6 +1,6 @@
 from decouple import config
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['Schoolsplus.pythonanywhere.com']
 
 DEBUG= False
 
