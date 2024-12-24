@@ -6,9 +6,9 @@ DEBUG= False
 
 EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST='smtp.gmail.com'
-EMAIL_PORT= config.get('port')
-EMAIL_HOST_USER= config.get('email')
-EMAIL_HOST_PASSWORD= config.get('password')
+EMAIL_PORT= config('port')
+EMAIL_HOST_USER= config('email')
+EMAIL_HOST_PASSWORD= config('password')
 EMAIL_USE_TLS= True
 
 X_FRAME_OPTIONS='SAMEORIGIN'
