@@ -102,7 +102,6 @@
     })
     //  Recupere la premiere page comme image
 
-    const csrfToken= getcookie()
     // like
     const like= document.getElementById('like')
     const dislike= document.getElementById('dislike')
@@ -111,12 +110,7 @@
     const color= 'transparent'
 
     const url= "{% url 'main:like' pdf.name user.pk 'neutre' %}"
-    fetch(url,{
-        method:"POST",
-        headers:{
-            'X-CSRFToken': csrfToken
-        }
-    })
+    fetch(url)
     .then(response => response.json())
     .then(data => {
         const compteur= document.getElementById('compteur')
@@ -138,12 +132,7 @@
 
     like.onclick =function(){
         const url= "{% url 'main:like' pdf.name user.pk 'like' %}"
-        fetch(url,{
-            method:"POST",
-            headers:{
-                'X-CSRFToken':getcookie()
-            }
-        })
+        fetch(url)
 
         .then(response => response.json())
         .then(data => {
@@ -161,12 +150,7 @@
     }
     dislike.onclick =function(){
         const url= "{% url 'main:like' pdf.name user.pk 'dislike' %}"
-        fetch(url,{
-            method:"POST",
-            headers:{
-                'X-CSRFToken':csrfToken
-            }
-        })
+        fetch(url)
 
         .then(response => response.json())
         .then(data => {
@@ -193,12 +177,7 @@
     const favoris_url_test= "{% url 'main:favoris' pdf.name user.pk 'neutre' %}"
     const favoris_url_change= "{% url 'main:favoris' pdf.name user.pk 'change' %}"
 
-    fetch(favoris_url_test,{
-        method:"POST",
-        headers:{
-            'X-CSRFToken':csrfToken
-        }
-    })
+    fetch(favoris_url_test)
     .then(response=> response.json())
     .then(data=>{
         if (data.favoris == '1'){
@@ -213,12 +192,8 @@
     })
 
     click_box.onclick = function(){
-        fetch(favoris_url_change,{
-            method:'POST',
-            headers:{
-                'X-CSRFToken':csrfToken
-            }
-        })
+        fetch(favoris_url_change)
+
         .then(response => response.json())
         .then(data => {
             console.log(data.favoris)

@@ -280,7 +280,7 @@ header img{
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    height: 90vh;
 }
 .main-box,.update-box{
     display: flex;
