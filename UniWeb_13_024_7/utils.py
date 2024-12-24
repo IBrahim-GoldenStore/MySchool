@@ -5,8 +5,18 @@ from django.utils.html import strip_tags
 from django.core.files import File
 from PyPDF2 import PdfReader
 from io import BytesIO
+import unicodedata
 from PIL import Image
 import hashlib
+import re
+
+def normalize_name(name:str):
+    without_pdf= name.replace('.pdf','')
+    without_accents= unicodedata.normalize('NFKC',without_pdf).encode('ascii','ignore').decode('utf-8')
+    without_special_caractere= re.sub(r'[^\w\s-]','_',without_accents)
+    without_espace= without_special_caractere.replace(" ","_")
+
+    return without_espace
 
 def compressor(comp_image=None,filename:str=None):
         img= Image.open(comp_image)

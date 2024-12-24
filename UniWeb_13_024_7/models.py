@@ -124,15 +124,14 @@ class Cours(models.Model):
         super().clean()
 
         if self.file:
-            cour_without_pdf= self.file.name.replace('.pdf','')
-            name= cour_without_pdf.replace('cours/','')
+            name= self.file.name.replace('cours/','')
 
             # A activez une fois les configurations terminer
             if self.file.size > 20*1024*1024:
                 raise  ValidationError('Fichier volumineux (>20Mo)')
             
             if not self.name:
-                self.name= name
+                self.name= normalize_name(name)
 
             try:
                 cours= PdfReader(self.file)
@@ -206,12 +205,11 @@ class Document(models.Model):
     def clean(self):
         super().clean()
 
-        name_wthiout_pdf= self.file.name.replace('.pdf','')
-        name= name_wthiout_pdf.replace('Document/','')
+        name= self.file.name.replace('Document/','')
 
         if not self.name:
-            self.name=name
-            self.correction_hash=f'hash_du_correction_{name[0:30]}'
+            self.name=normalize_name(name)
+            self.correction_hash=f'hash_du_correction_{normalize_name(name)[0:30]}'
 
         if self.file:
 

@@ -11,7 +11,7 @@
 <body>
     <div class="en-tete">
         <a href="{% url lien %}#start">Retour</a>
-        <h1>{{ pdf.name|truncatechars:50 }}</h1>  
+        <h1>{{ pdf.name|truncatechars:30 }}</h1>  
         <h3>Auteur : {{ auteur|default:"Non définie" }}</h3>  
     </div>
 
@@ -26,12 +26,12 @@
                 {% endif %}
 
                 {% if pdf.filiere %}
-                    <p><span>Filiere</span> : {{ pdf.filiere.sigle|truncatechars:7|default:"Non définie" }}</p>
+                    <p><span>Filiere</span> : {{ pdf.filiere.sigle|truncatechars:9|default:"Non définie" }}</p>
                 {% else %}
                     <p><span>Filiere</span> : Non définie</p>
                 {% endif %}
 
-                <p><span>Niveau</span> : {{ pdf.level|truncatechars:7|default:"Non définie" }}</p>    
+                <p><span>Niveau</span> : {{ pdf.level|truncatechars:9|default:"Non définie" }}</p>    
                 
                 {% if pdf.correction %}
                     <p><span>Correction</span> : Disponible</p>
