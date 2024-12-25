@@ -465,26 +465,24 @@ def compte_view(request): # vue de la page compte et mise a jour de l'avatar
     favoris.append(FavorisDocument.objects.filter(user=user,favoris=True))
     favoris.append( FavorisCours.objects.filter(user=user,favoris=True))
 
-    if user.is_superuser or user.is_staff:
+    cours_like= CoursLike.objects.filter(like=True).count()
+    document_like= DocumentLike.objects.filter(like=True).count()
+    event_like= EventLike.objects.filter(like=True).count()
 
-        cours_like= CoursLike.objects.filter(like=True).count()
-        document_like= DocumentLike.objects.filter(like=True).count()
-        event_like= EventLike.objects.filter(like=True).count()
+    all_cours= Cours.objects.all()
+    cours_download=0
+    for i in all_cours:
+        cours_download += i.downloads
 
-        all_cours= Cours.objects.all()
-        cours_download=0
-        for i in all_cours:
-            cours_download += i.downloads
+    all_document= Document.objects.all()
+    document_download=0
+    for i in all_document:
+        document_download += i.downloads
 
-        all_document= Document.objects.all()
-        document_download=0
-        for i in all_document:
-            document_download += i.downloads
-
-        all_event= Events.objects.all()
-        event_download=0
-        for i in all_event:
-            event_download += i.downloads
+    all_event= Events.objects.all()
+    event_download=0
+    for i in all_event:
+        event_download += i.downloads
 
     context={
         'form': form,
