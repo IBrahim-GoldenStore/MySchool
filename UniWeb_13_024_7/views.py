@@ -243,9 +243,6 @@ def exo_view(request):
             if objet.level == user.profil.level and objet.filiere == user.profil.filiere:
                 exercices_trier.insert(i,objet)
                 i+=1
-            elif objet.level == user.profil.level or objet.filiere == user.profil.filiere:
-                exercices_trier.insert(i,objet)
-                i+=1
             else:
                 exercices_trier.append(objet)
                 

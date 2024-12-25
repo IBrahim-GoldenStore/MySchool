@@ -652,7 +652,7 @@ header img{
 }
 .exo-box{
     display: flex;
-    /* gap: 22px; */
+    gap: 20px;
     justify-content: space-around;
     flex-wrap: wrap;
     width: 100%;
