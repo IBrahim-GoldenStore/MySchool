@@ -21,8 +21,8 @@ from django.conf.urls.static import static
 from django.shortcuts import redirect
 
 urlpatterns = [
-    path("",lambda request: redirect('UniWeb/',permanent=False)),
-    path('UniWeb/', include('UniWeb_13_024_7.urls_13')),
-    path('admin/', admin.site.urls),
+    path("",lambda request: redirect('SchoolsPlus/',permanent=False)),
+    path('SchoolsPlus/', include('UniWeb_13_024_7.urls_13')),
+    path('admin_Tree/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 # UniWeb_13_024_7

@@ -11,7 +11,7 @@
 <body>
     <div class="en-tete">
         <a href="{% url lien %}#start">Retour</a>
-        <h1>{{ pdf.name|truncatechars:30 }}</h1>  
+        <h1>{{ pdf.name|truncatechars:100 }}</h1>  
         <h3>Auteur : {{ auteur|default:"Non définie" }}</h3>  
     </div>
 

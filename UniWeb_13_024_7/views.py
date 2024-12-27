@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.http import JsonResponse
+from random import choice
 # Create your views here.
 import os
 
@@ -158,19 +159,20 @@ def cours_view(request):
 
 
     if user.is_authenticated:
-        cours_trier=[]
-        i=0
-        for objet in cours:
-            if objet.level == user.profil.level and objet.filiere == user.profil.filiere:
-                cours_trier.insert(i,objet)
-                i+=1
-            elif objet.level == user.profil.level or objet.filiere == user.profil.filiere:
-                cours_trier.insert(i,objet)
-                i+=1
-            else:
-                cours_trier.append(objet)
+        # cours_trier=[]
+        # i=0
+        # for objet in cours:
+        #     if objet.level == user.profil.level and objet.filiere == user.profil.filiere:
+        #         cours_trier.insert(i,objet)
+        #         i+=1
+        #     elif objet.level == user.profil.level or objet.filiere == user.profil.filiere:
+        #         cours_trier.insert(i,objet)
+        #         i+=1
+        #     else:
+        #         cours_trier.append(objet)
                 
-        cours=cours_trier
+        # cours=cours_trier
+        cours= Cours.objects.filter(filiere=user.profil.filiere,level=user.profil.level)
 
     pagination= Paginator(cours,26)
     page= request.GET.get('page')
@@ -237,16 +239,17 @@ def exo_view(request):
 
     # systeme de tries si l'utilisateur est connecter
     if user.is_authenticated:
-        exercices_trier=[]
-        i=0
-        for objet in exercices:
-            if objet.level == user.profil.level and objet.filiere == user.profil.filiere:
-                exercices_trier.insert(i,objet)
-                i+=1
-            else:
-                exercices_trier.append(objet)
+        exercices= Document.objects.filter(filiere=user.profil.filiere,level=user.profil.level)
+        # exercices_trier=[]
+        # i=0
+        # for objet in exercices:
+        #     if objet.level == user.profil.level and objet.filiere == user.profil.filiere:
+        #         exercices_trier.insert(i,objet)
+        #         i+=1
+        #     else:
+        #         exercices_trier.append(objet)
                 
-        exercices=exercices_trier
+        # exercices=exercices_trier
 
     paginator= Paginator(exercices,26)
     page_number= request.GET.get('page')
@@ -459,8 +462,10 @@ def compte_view(request): # vue de la page compte et mise a jour de l'avatar
     user= request.user
 
     favoris=[]
-    favoris.append(FavorisDocument.objects.filter(user=user,favoris=True))
-    favoris.append( FavorisCours.objects.filter(user=user,favoris=True))
+    if FavorisCours.objects.filter(user=user,favoris=True).exists() or FavorisDocument.objects.filter(user=user,favoris=True).exists():
+        favoris.append(FavorisDocument.objects.filter(user=user,favoris=True))
+        favoris.append(FavorisCours.objects.filter(user=user,favoris=True))
+
 
     cours_like= CoursLike.objects.filter(like=True).count()
     document_like= DocumentLike.objects.filter(like=True).count()
@@ -481,6 +486,9 @@ def compte_view(request): # vue de la page compte et mise a jour de l'avatar
     for i in all_event:
         event_download += i.downloads
 
+    colors_set=['#e6e6fa','#ffe4e1','#d7d48d','#adf0d1','#f0adc7','#f0cbad','#dcadf0','#ffd141a8','#68a3d5']
+    bg_color= choice(colors_set)
+
     context={
         'form': form,
         'name':name,
@@ -491,6 +499,7 @@ def compte_view(request): # vue de la page compte et mise a jour de l'avatar
         'document_download':document_download,
         'event_download': event_download,
         'favoris': favoris,
+        'bg_color':bg_color
         }
 
     return render(request, 'main_html/account/compte.html',context)
@@ -561,7 +570,7 @@ def sigin_views(request): # vue de la page de creation de compte
             user= authenticate(username=username,password=password)
             login(request,user)
             Profil.objects.create(user=user)
-            return redirect('main:compte')
+            return redirect('main:update',username=username)
         else:
             return redirect('main:error',message='assurez-vous que les données sont valides',lien='main:sigin')#('main:sigin2_redirect')
     else:

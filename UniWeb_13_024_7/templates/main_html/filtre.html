@@ -17,13 +17,13 @@
             <h3>Filière</h3>
             <div class="links">
                 {% for i in filiere %}
-                    <a href="{% url filtre i.name %}#start">{{ i.sigle|truncatechars:5 }}</a>
+                    <a href="{% url filtre i.name %}#start">{{ i.sigle|truncatechars:9 }}</a>
                 {% endfor %}  
             </div>
             <h3>Niveau</h3>
             <div class="links2">
                 {% for i in levels %}
-                    <a href="{% url filtre i.name %}#start">{{ i.name|truncatechars:5 }}</a>
+                    <a href="{% url filtre i.name %}#start">{{ i.name|truncatechars:9 }}</a>
                 {% endfor %}
        
             </div>

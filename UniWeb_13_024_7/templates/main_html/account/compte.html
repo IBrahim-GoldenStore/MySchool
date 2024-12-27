@@ -23,6 +23,7 @@
             <div class="logo-in-nav-bar">
                 <a href="#"><h1>Schools+</h1></a>
             </div>
+            <hr>
             <!-- display none par defaut visible en media query  -->
 
             <a href="{% url 'main:index' %}">
@@ -54,9 +55,15 @@
             </a>
 
             <div class="footer-nav-bar">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'main:logout' %}">Déconnexion</a>
+                    <hr>
+                {% endif %}
+                <a href="mailto:myschoolteam.web@gmail.com?subject=Feedbacks">Envoyer un feedback</a>
+                <hr>
                 <p>© 2024</p>
-                <p>Tout droits reserver</p>
             </div>
+
         </nav>
         <div class="media-query-menu" id="menu-button"></div>
     </header>
@@ -74,7 +81,7 @@
             {% if user.profil %}
                 <h1>{{ user.username|truncatechars:20}}</h1>
                 <h4>Établissement : {{ user.profil.university|default:"Non définie"|truncatechars:15 }} <span>Filière: {{ user.profil.filiere.sigle|truncatechars:10|default:"Non définie" }}</span></h4>
-                <h4>Niveau d'étude: {{ user.profil.level.name|default:"Non définie"|truncatechars:15 }} <span>Statut: {{ user.profil.statut|default:"Etudiant" }}</span></h4>
+                <h4><span>Niveau d'étude: {{ user.profil.level.name|default:"Non définie"|truncatechars:15 }}</span></h4>
                 <div class="biographie">
                     <h4>Biographie</h4>
                     <p>{{ user.profil.bio }}</p>    
@@ -101,15 +108,18 @@
             </div>    
         </div>
     </section>
-
         <section class="read-link">
             <h2>Favoris</h2>
             <div>
-                {% for item in favoris  %}
-                    {% for element in item %}
-                    <a href="{% url 'main:read' element.pdf.name %}">{{ element.pdf.name|truncatechars:20 }}</a>
+                {% if favoris %}
+                    {% for item in favoris  %}
+                        {% for element in item %}
+                            <a href="{% url 'main:pdf' element.pdf.name %}">{{ element.pdf.name|truncatechars:20 }}</a>
+                        {% endfor %}
                     {% endfor %}
-                {% endfor %}
+                {% else %}
+                    <h3>Aucune favoris.</h3>
+                {% endif %}
             </div>
         </section>
 
@@ -134,5 +144,9 @@
             
         
 <script src="{% static 'main_style/account.js' %}"></script>
+<script>
+    const avatar=document.querySelector('.anonyme-avatar')
+    avatar.style.backgroundColor="{{ bg_color }}"
+</script>
 </body>
 </html>

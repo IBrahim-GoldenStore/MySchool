@@ -45,6 +45,11 @@
  /* state */
 @media screen and (max-width:514px) {
     /* menu deroulant */
+    header hr{
+        display: block;
+        background-color: #000;
+        width: 180px;
+    }
     .logo-in-nav-bar{
         display: flex;
         align-items: center;
@@ -59,22 +64,27 @@
     }
     .nav-links{
         height: 100vh;
-        width: fit-content;
+        width: 200px;
         padding: 0 10px;
         flex-direction: column;
         position: fixed;
         z-index: 200;
         /* left: 0; */
         inset: 0;
-        background-color: #f1f3f4;
+        background-color: #FDFEFE;
         transform: translateX(-500px);
         transition: .5s;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
     }
     .nav-links.active{
         transform: translateX(0);
     }
     .nav-links a{
         align-self: start;
+    }
+    .nav-links a div{
+        gap: 10px;
     }
     .nav-links a div h3{
         font-size: 1.2rem;
@@ -117,7 +127,8 @@
         width: 20px;
         align-self: flex-end;
         cursor: pointer;
-        margin-top: 5px;
+        margin-top: 10px;
+        margin-right: 6px;
     }
     .nav-links span::after{
         content: "";
@@ -143,6 +154,19 @@
         flex-direction: column;
         position: absolute;
         bottom: 0;
+        width: inherit;
+    }
+    .footer-nav-bar hr{
+        margin: 5px;
+    }
+    .footer-nav-bar a:first-of-type{
+        font-weight: bold;
+        color: #000;
+    }
+    .footer-nav-bar a:last-of-type{
+        background-color: transparent;
+        border: none;
+        color: #000;
     }
     .footer-nav-bar p{
         font-size: .7rem;
@@ -286,23 +310,13 @@
     }
  }
  @media screen and (max-width:425px) {
-    /* .exo-container{ */
-        /* width: 300px; */
-        /* height: 180px; */
-    /* } */
-    /* .exo-container img{ */
-        /* width: 65px; */
-        /* height: 65px; */
-    /* } */
-    /* .exo-container > div{ */
-        /* height: 160px; */
-    /* } */
     .exo-container > div a:first-of-type{
         font-size: 1.2rem;
     }
-    /* .publi-info{ */
-        /* display: block; */
-    /* } */
+    .filter-none > svg {
+        width: 50px;
+        height: 50px;
+    }
  }
  /* pdf.html */
  @media screen and (max-width:779px) {
@@ -311,7 +325,7 @@
         align-items: center;
     }
     .en-tete h1{
-        font-size: 1.4rem;
+        font-size: 1.25rem;
     }
     .pdf-main-box{
         margin-top: 20px;
@@ -343,7 +357,7 @@
         height: 200px;
     }
     .profil-description{
-        width: 80%;
+        width: 90%;
         padding-top: 0;
     }
     .profil-box h1{

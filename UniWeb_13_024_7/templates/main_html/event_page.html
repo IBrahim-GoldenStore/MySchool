@@ -24,6 +24,7 @@
             <div class="logo-in-nav-bar">
                 <a href="#"><h1>Schools+</h1></a>
             </div>
+            <hr>
             <!-- display none par defaut visible en media query  -->
 
             <a href="{% url 'main:index' %}">
@@ -55,8 +56,15 @@
             </a>
 
             <div class="footer-nav-bar">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'main:logout' %}">Déconnexion</a>
+                    <hr>
+                {% endif %}
+                <a href="mailto:myschoolteam.web@gmail.com?subject=Feedbacks">Envoyer un feedback</a>
+                <hr>
                 <p>© 2024</p>
-            </div>    
+            </div>
+
         </nav>
 
         <div class="media-query-menu" id="menu-button"></div>

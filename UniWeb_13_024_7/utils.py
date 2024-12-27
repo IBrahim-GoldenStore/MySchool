@@ -14,7 +14,7 @@ def normalize_name(name:str):
     without_pdf= name.replace('.pdf','')
     without_accents= unicodedata.normalize('NFKC',without_pdf).encode('ascii','ignore').decode('utf-8')
     without_special_caractere= re.sub(r'[^\w\s-]','_',without_accents)
-    without_espace= without_special_caractere.replace(" ","_")
+    without_espace= without_special_caractere.replace(" ","-")
 
     return without_espace
 
