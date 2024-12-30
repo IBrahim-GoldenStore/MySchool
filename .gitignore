@@ -1,5 +1,7 @@
 /media/
 /staticfiles/
+/migrations/
+/__pycache__/
 .env
 db.sqlite3
 locals.py
