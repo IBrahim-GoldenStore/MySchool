@@ -90,6 +90,7 @@ class Cours(models.Model):
 
     filiere= models.ForeignKey(Filiere,on_delete=models.CASCADE,verbose_name='Filière',null=True,blank=True,default="",related_name='filiere_cours')
     level= models.ForeignKey(NiveauEtude,on_delete=models.CASCADE,verbose_name="Niveau du cours",null=True,blank=True,default='',related_name='level_cours')
+    matiere= models.CharField(max_length=60,verbose_name='Matère',null=True,default='')
 
     publier= models.BooleanField(verbose_name="Publier le fichier",default=False)
     publier_par= models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)

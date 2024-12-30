@@ -7,6 +7,16 @@
     <title>{{ pdf.name|truncatechars:15 }} </title>
     <link rel="stylesheet" href="{% static 'main_style/main.css' %}">
     <link rel="stylesheet" href="{% static 'main_style/mediaquery.css' %}">
+
+    <!-- Google tag (gtag.js) -->
+    <script async scr="https://www.googletagmanager.com/gtag/js?id=G-SZMZ8G52H0"></script>
+    <script>
+        window.dataLayer= window.dataLayer || [];
+        function gtag() {dataLayer.push(arguments);}
+        gtag('js',new Date());
+        gtag('config','G-SZMZ8G52H0');
+    </script>
+    
 </head>
 <body>
     <div class="en-tete">
@@ -37,6 +47,11 @@
                     <p><span>Correction</span> : Disponible</p>
                     <a href="{% url 'main:download' 'Correction' pdf.pk %}">Télecharger la correction</a>
                 {% endif %}
+
+                {% if pdf.matiere %}
+                    <p><span>Matière</span> : {{ pdf.matiere|truncatechars:20 }}</p>
+                {% endif %}
+                    
 
                 <p><span>Publier par</span> : {{ pdf.publier_par }}</p>
                 <p><span>Date de publication</span> : le {{ pdf.add_date.date }}</p>

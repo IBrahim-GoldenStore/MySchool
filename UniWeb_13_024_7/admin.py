@@ -25,7 +25,7 @@ class AdminTypeOf(admin.ModelAdmin):
 
 @admin.register(Cours)
 class AdminCours(admin.ModelAdmin):
-    list_display=['name','filiere','level']
+    list_display=['name','filiere','level','matiere']
     readonly_fields=['file','publier_par','hash','add_date','downloads']
 
 @admin.register(Events)

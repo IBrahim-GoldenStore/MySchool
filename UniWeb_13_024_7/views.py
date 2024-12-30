@@ -144,35 +144,22 @@ def cours_view(request):
     cours= Cours.objects.filter(publier=True).order_by('id')
     filiere= Filiere.objects.all()
     level= NiveauEtude.objects.all()
+    if user.is_authenticated:
+        cours= Cours.objects.filter(filiere=user.profil.filiere,level=user.profil.level)
+
 
     search_content= request.GET.get('search')
     option= request.GET.get('options')
-    champs=['name','university']
+    champs=['name','matiere']
     if search_content is not None and search_content != '':
         if not option in champs:
             return redirect('main:error',message='Veuillez définir un critère valide',lien='main:cours')
         try:
             filter= {f"{option}__icontains":search_content}
-            cours= Cours.objects.filter(**filter)
+            cours= Cours.objects.filter(**filter).order_by('id')
         except:
             return redirect('main:error',message='Votre recherche est incorrecte',lien='main:cours')
 
-
-    if user.is_authenticated:
-        # cours_trier=[]
-        # i=0
-        # for objet in cours:
-        #     if objet.level == user.profil.level and objet.filiere == user.profil.filiere:
-        #         cours_trier.insert(i,objet)
-        #         i+=1
-        #     elif objet.level == user.profil.level or objet.filiere == user.profil.filiere:
-        #         cours_trier.insert(i,objet)
-        #         i+=1
-        #     else:
-        #         cours_trier.append(objet)
-                
-        # cours=cours_trier
-        cours= Cours.objects.filter(filiere=user.profil.filiere,level=user.profil.level)
 
     pagination= Paginator(cours,26)
     page= request.GET.get('page')
@@ -217,6 +204,8 @@ def exo_view(request):
     filiere= Filiere.objects.all()
     level= NiveauEtude.objects.all()
     exercices= Document.objects.filter(publier=True).order_by('id')
+    if user.is_authenticated:
+        exercices= Document.objects.filter(filiere=user.profil.filiere,level=user.profil.level)
 
     # syteme de traitement pour le formulaire
     search_content= request.GET.get('search')
@@ -232,14 +221,12 @@ def exo_view(request):
                 exercices= list1.type.filter(name__icontains=search_content)
             else:
                 filter= {f"{option}__icontains":search_content}
-                exercices= Document.objects.filter(**filter)
+                exercices= Document.objects.filter(**filter).order_by('id')
         except:
             return redirect('main:error',message='Votre recherche est incorrecte',lien='main:exo')
         
 
     # systeme de tries si l'utilisateur est connecter
-    if user.is_authenticated:
-        exercices= Document.objects.filter(filiere=user.profil.filiere,level=user.profil.level)
         # exercices_trier=[]
         # i=0
         # for objet in exercices:
